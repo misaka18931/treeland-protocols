@@ -23,9 +23,52 @@
             <arg name="output_name" type="string" summary="the name of the output" />
         </event>
 
+        <request name="get_color_control" since="1">
+            <description summary="Get color control interface for output."/>
+            <arg name="id" type="new_id" interface="treeland_color_control_v1"/>
+            <arg name="output" type="object" interface="wl_output"/>
+        </request>
+
         <request name="destroy" type="destructor" since="1">
             <description summary="Destroy the primary output notifier." />
         </request>
+    </interface>
+
+    <interface name="treeland_color_control_v1" version="1">
+        <description summary="Color control interface for output.">
+            Protocol for controlling color temperature and brightness settings of a specific output.
+        </description>
+
+        <request name="set_color_temperature" since="1">
+            <description summary="Set color temperature for output."/>
+            <arg name="temperature" type="uint" summary="color temperature in Kelvin"/>
+        </request>
+
+        <request name="set_brightness" since="1">
+            <description summary="Set brightness for output."/>
+            <arg name="brightness" type="uint" summary="brightness level (0 to 100)"/>
+        </request>
+
+        <request name="color_temperature" since="1">
+            <description summary="Current color temperature for output.">
+                Provides the current color temperature setting of the output.
+                This event is sent once after the treeland_color_control_v1 object is created, and whenever the color temperature changes.
+            </description>
+            <arg name="temperature" type="uint" summary="current color temperature in Kelvin"/>
+        </request>
+
+        <request name="brightness" since="1">
+            <description summary="Current brightness for output.">
+                Provides the current brightness setting of the output.
+                This event is sent once after the treeland_color_control_v1 object is created, and whenever the brightness changes.
+            </description>
+            <arg name="brightness" type="uint" summary="current brightness level (0 to 100)"/>
+        </request>
+
+        <request name="destroy" type="destructor" since="1">
+            <description summary="Destroy the color control interface." />
+        </request>
+
     </interface>
 
 </protocol>
